@@ -216,17 +216,12 @@
           </ul>
         </div>
         <div class="clearfix"></div>
-        <!--/tabs-->
+
         <div class="responsive_tabs">
-          <div id="horizontalTab">
-            <ul class="resp-tabs-list">
-              <li>Description</li>
-              <li>Reviews</li>
-              <li>Information</li>
-            </ul>
-            <div class="resp-tabs-container">
-              <!--/tab_one-->
-              <div class="tab1">
+          <tabs class="resp-tabs-list">
+            <tab name="Description">
+              <div class="resp-tabs-container">
+                <div class="tab1">
                 <div class="single_page">
                   <h6>Lorem ipsum dolor sit amet</h6>
                   <p>
@@ -249,8 +244,11 @@
                   </p>
                 </div>
               </div>
-              <!--//tab_one-->
-              <div class="tab2">
+              </div>
+            </tab>
+            <tab name="Reviews">
+                <div class="resp-tabs-container">
+                  <div class="tab2">
                 <div class="single_page">
                   <div class="bootstrap-tab-text-grids">
                     <div class="bootstrap-tab-text-grid">
@@ -296,7 +294,11 @@
                   </div>
                 </div>
               </div>
-              <div class="tab3">
+                </div>
+            </tab>
+            <tab name="Information">
+              <div class="resp-tabs-container">
+                <div class="tab3">
                 <div class="single_page">
                   <h6>Shoe Rock Vision(SRV) Sneakers (Blue)</h6>
                   <p>
@@ -319,10 +321,10 @@
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+              </div>
+            </tab>
+          </tabs>
         </div>
-        <!--//tabs-->
         <!-- /new_arrivals -->
         <div class="new_arrivals">
           <h3>Featured Products</h3>
@@ -658,7 +660,34 @@
 </template>
 
 <script>
+if(!window.jQuery) window.jQuery = require('jquery');
+if(!window.jQuery.fn.flexslider) require('flexslider');
+
 export default {
   name: "Single",
+  props: {
+        images: {
+            type: Array,
+            default: () => []
+        },
+        items: {
+            type: Array,
+            default: () => []
+        },
+        options: {
+            type: Object,
+            default: () => { return {} }
+        }
+    },
+    mounted(){
+        window.jQuery(this.$el).flexslider(this.options);
+    }
 };
 </script>
+
+<style>
+  .flex-control-nav{
+    display: none;
+  }
+</style>
+
