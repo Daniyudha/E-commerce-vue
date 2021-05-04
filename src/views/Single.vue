@@ -215,7 +215,6 @@
             </li>
           </ul>
         </div>
-        <div class="clearfix"></div>
 
         <div class="responsive_tabs">
           <tabs class="resp-tabs-list">
@@ -660,34 +659,56 @@
 </template>
 
 <script>
-if(!window.jQuery) window.jQuery = require('jquery');
-if(!window.jQuery.fn.flexslider) require('flexslider');
+import axios from "axios";
+
+if (!window.jQuery) window.jQuery = require("jquery");
+if (!window.jQuery.fn.flexslider) require("flexslider");
 
 export default {
   name: "Single",
   props: {
-        images: {
-            type: Array,
-            default: () => []
-        },
-        items: {
-            type: Array,
-            default: () => []
-        },
-        options: {
-            type: Object,
-            default: () => { return {} }
-        }
+    images: {
+      type: Array,
+      default: () => []
     },
-    mounted(){
-        window.jQuery(this.$el).flexslider(this.options);
+    items: {
+      type: Array,
+      default: () => []
+    },
+    options: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
+  },
+
+  data() {
+    return {
+      single: null,
+      loading: true,
+      errored: false
+    };
+  },
+
+  mounted() {
+    window.jQuery(this.$el).flexslider(this.options);
+    this.getDataProduct();
+  },
+  methods: {
+    getDataProduct() {
+      axios.get("https://fakestoreapi.com/products/1").then(response => {
+        this.single = response.data;
+        console.log(this.single);
+      });
+    }
+  }
 };
 </script>
 
 <style>
-  .flex-control-nav{
-    display: none;
-  }
+.flex-control-nav {
+  display: none;
+}
 </style>
 
